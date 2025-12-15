@@ -38,7 +38,7 @@ This was a solo project. All data processing, model implementation, evaluation, 
 **Mitigation experiments** tested whether simple inference-time changes reduce counterfactual instability. Name masking (replacing the first name with `[NAME]`) reduced flip rates to **0.0%** for both MiniLM and E5-Small and collapsed probability-range variability to approximately zero. In contrast, single-token/frequency-based name normalization did not reduce instability and increased flip rates to **16.4%** (MiniLM) and **25.4%** (E5-Small), with mean probability ranges **0.1529** and **0.2182**. Overall, the mitigation results indicate that removing the name signal directly was effective in this pipeline, while normalization-based approaches did not address the underlying sensitivity.
 
 
-## Phases (high level)
+## Phases
 
 - **Phase 0** – basic setup, smoke tests, checking paths
 - **Phase 1** – clean raw resumes/jobs and save processed CSVs
@@ -46,34 +46,4 @@ This was a solo project. All data processing, model implementation, evaluation, 
 - **Phase 3** – build name-swapped resume quartets and measure how often scores/decisions flip
 - **Phase 4** – train simple classifier heads (MiniLM + E5-Small) and check their flip rates
 - **Phase 5** – run two mitigation ideas (name masking vs single-token normalization) and compare
-
-## How to run it
-
-There is a small helper script so you don’t have to remember the Python commands.
-
-```bash
-# install dependencies (from this folder)
-pip install -r requirements.txt
-
-# quick check that the environment and paths are sane
-./run.sh smoke
-
-# show some basic info
-./run.sh info
-
-# run all phases at once (should take ~5 minutes)
-
-# phase 1–3 pipeline
-./run.sh phase1
-./run.sh phase2
-./run.sh phase3
-
-# phase 4: train + evaluate classifier heads
-./run.sh phase4       # or ./run.sh phase4-train and ./run.sh phase4-eval
-
-# phase 5: run the mitigation experiments
-./run.sh phase5
-```
-
-
 
